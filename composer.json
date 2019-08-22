@@ -2,7 +2,7 @@
     "name": "maxgoody/helium",
     "description": "Helium - Prison PHP SDK.",
     "type": "project",
-    "license": "ISC",
+    "license": "MIT",
     "authors": [
         {
             "name": "Maxim Alexeev",
@@ -12,7 +12,12 @@
     "minimum-stability": "stable",
     "autoload": {
         "psr-4": {
-            "Helium\\": "src"   
+            "MaxGoody\\Helium\\": "src"
         }
+    },
+    "require": {
+        "php": ">=7.1.0",
+        "ext-curl": "*",
+        "ext-json": "*"
     }
 }

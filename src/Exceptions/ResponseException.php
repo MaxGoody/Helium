@@ -1,12 +1,14 @@
 <?php
-namespace Helium\Exceptions;
+
+namespace MaxGoody\Helium\Exceptions;
 
 use Exception;
 
 /**
- * ResponseException
- * @package Helium\Exceptions
- * @author Maxim Alexeev
- * @license ISC
+ * @package MaxGoody\Helium\Exceptions
+ * @author  Maxim Alexeev <maksimgoody@gmail.com>
+ * @license MIT
  */
-class ResponseException extends Exception {}
+class ResponseException extends Exception
+{
+}

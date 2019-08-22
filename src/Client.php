@@ -1,19 +1,19 @@
 <?php
-namespace Helium;
+
+namespace MaxGoody\Helium;
 
 use OutOfRangeException;
-use Helium\Exceptions\RequestException;
-use Helium\Exceptions\ResponseException;
+use MaxGoody\Helium\Exceptions\RequestException;
+use MaxGoody\Helium\Exceptions\ResponseException;
 
 /**
- * Client
- * @package Helium
- * @author Maxim Alexeev
- * @license ISC
+ * @package MaxGoody\Helium
+ * @author  Maxim Alexeev <maksimgoody@gmail.com>
+ * @license MIT
  */
 class Client
 {
-    
+
     /**
      * @var int
      */
@@ -40,15 +40,15 @@ class Client
         $this->auth_key = $auth_key;
         $this->resource = curl_init();
     }
-    
+
     /**
-     * @param string $name
+     * @param  string  $name
      * @throws OutOfRangeException
      */
     public function __get(string $name)
     {
-        if (count($this->method_parts) > 0) {
-            throw new OutOfRangeException('The method is characterized by only one controller!');
+        if (count($this->method_parts) > 1) {
+            throw new OutOfRangeException('The method is characterized by only two controllers!');
         }
 
         $this->method_parts[] = $name;
@@ -56,8 +56,8 @@ class Client
     }
 
     /**
-     * @param string $name
-     * @param array $arguments
+     * @param  string  $name
+     * @param  array   $arguments
      * @throws RequestException
      * @throws ResponseException
      */
@@ -70,9 +70,8 @@ class Client
     }
 
     /**
-     * @param string $method
-     * @param array $options
-     * 
+     * @param  string  $method
+     * @param  array   $options
      * @return mixed
      * @throws RequestException
      * @throws ResponseException
@@ -90,7 +89,7 @@ class Client
             CURLOPT_HEADER => false,
             CURLOPT_CONNECTTIMEOUT => 5,
             CURLOPT_RETURNTRANSFER => true,
-            CURLOPT_POSTFIELDS => $options
+            CURLOPT_POSTFIELDS => $options,
         ]);
 
         $response = curl_exec($this->resource);
@@ -105,9 +104,9 @@ class Client
         $data = strpos($response, '<') === 0 ? simplexml_load_string($response) : json_decode($response, true);
         if (is_object($data) && isset($data->error)) {
             $error = $data->error;
-            throw new ResponseException($error->msg, (Int)$error->code);
+            throw new ResponseException($error->msg, (int)$error->code);
         }
-        
+
         return $data;
     }
 
@@ -118,9 +117,9 @@ class Client
     {
         return $this->id;
     }
-    
+
     /**
-     * @param int $id
+     * @param  int  $id
      */
     public function setId(int $id): void
     {
@@ -136,7 +135,7 @@ class Client
     }
 
     /**
-     * @param string $auth_key
+     * @param  string  $auth_key
      */
     public function setAuthKey(string $auth_key): void
     {
